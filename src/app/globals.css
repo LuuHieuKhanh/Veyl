@@ -1,0 +1,476 @@
+@import "tailwindcss";
+
+/* 1. Tailwind v4 Theme Variables mapping custom color guides */
+@theme {
+  --color-on-error-container: #ffdad6;
+  --color-error: #ffb4ab;
+  --color-on-primary: #3f008e;
+  --color-on-primary-fixed-variant: #5a00c6;
+  --color-surface: #131319;
+  --color-secondary: #ddb8ff;
+  --color-primary-fixed-dim: #d2bbff;
+  --color-on-primary-fixed: #25005a;
+  --color-inverse-surface: #e4e1ea;
+  --color-outline-variant: #4a4455;
+  --color-on-tertiary-container: #ffe0cd;
+  --color-surface-variant: #34343b;
+  --color-secondary-fixed-dim: #ddb8ff;
+  --color-surface-container-low: #1b1b21;
+  --color-surface-container-highest: #34343b;
+  --color-on-secondary-container: #d1a1ff;
+  --color-tertiary-fixed-dim: #ffb784;
+  --color-on-tertiary-fixed: #301400;
+  --color-tertiary-container: #a15100;
+  --color-error-container: #93000a;
+  --color-on-secondary-fixed-variant: #62259b;
+  --color-secondary-fixed: #f0dbff;
+  --color-surface-bright: #39383f;
+  --color-on-secondary-fixed: #2c0051;
+  --color-on-background: #e4e1ea;
+  --color-on-tertiary: #4f2500;
+  --color-primary-fixed: #eaddff;
+  --color-surface-tint: #d2bbff;
+  --color-surface-container-lowest: #0e0e13;
+  --color-on-surface-variant: #ccc3d8;
+  --color-tertiary: #ffb784;
+  --color-outline: #958da1;
+  --color-on-primary-container: #ede0ff;
+  --color-on-surface: #e4e1ea;
+  --color-secondary-container: #62259b;
+  --color-inverse-primary: #732ee4;
+  --color-primary-container: #7c3aed;
+  --color-surface-container: #1f1f25;
+  --color-on-tertiary-fixed-variant: #713700;
+  --color-on-secondary: #490081;
+  --color-tertiary-fixed: #ffdcc6;
+  --color-inverse-on-surface: #303036;
+  --color-background: #131319;
+  --color-primary: #d2bbff;
+  --color-surface-container-high: #2a2930;
+  --color-on-error: #690005;
+  --color-surface-dim: #131319;
+  
+  --spacing-lg: 24px;
+  --spacing-unit: 4px;
+  --spacing-xl: 40px;
+  --spacing-sm: 8px;
+  --spacing-xs: 4px;
+  --spacing-container-max: 1200px;
+  --spacing-md: 16px;
+  --spacing-gutter: 20px;
+}
+
+/* 2. Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #131319;
+  background-image: radial-gradient(circle at 50% 50%, #1a1a24 0%, #131319 100%);
+  color: #e4e1ea;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Carbon Fibre patterned overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  z-index: 50;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(210, 187, 255, 0.4);
+}
+
+/* 3. Custom Glassmorphic surfaces from mockup */
+.glass {
+  background: rgba(31, 31, 37, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(149, 141, 161, 0.1);
+}
+
+.glass-card {
+  background: rgba(31, 31, 37, 0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(63, 63, 70, 0.4);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+  border-color: #7C3AED;
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+  transform: translateY(-8px) scale(1.02);
+}
+
+.glass-panel {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Glowing filters */
+.violet-glow {
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.15);
+}
+
+.violet-glow-bg {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.primary-btn-gradient, .primary-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+}
+
+/* 4. Background floats */
+.aura {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, rgba(124, 58, 237, 0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+  animation: float 20s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(100px, 50px) scale(1.2); }
+}
+
+.floating-card {
+  animation: float-card 6s ease-in-out infinite;
+}
+
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 5. Typography helper mappings */
+.text-headline-xl {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.text-headline-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-headline-lg-mobile {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 600;
+}
+
+.text-title-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.text-label-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* 6. Missing custom class definitions to match invite page and premium layouts */
+.btn-primary {
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  color: #ffffff !important;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.25);
+  border: none;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: rgba(31, 31, 37, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(74, 68, 85, 0.5); /* outline-variant */
+  color: #e4e1ea !important;
+  border-radius: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary:hover {
+  border-color: #7C3AED;
+  color: #d2bbff !important;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.ambient-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #131319;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.08) 0%, transparent 40%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Make sure standard headings are mapped */
+.font-headline-xl,
+.font-headline-lg,
+.font-headline-lg-mobile,
+.font-title-md,
+.font-body-lg,
+.font-body-md,
+.font-label-sm {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Chat container fixed height or responsive spacing */
+.chat-container {
+  height: calc(100vh - 156px);
+}
+
+.glow-primary {
+  text-shadow: 0 0 20px rgba(210, 187, 255, 0.4);
+}
+
+.border-glow {
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.25) !important;
+}
+
+/* 7. Named spacing utility mappings to prevent Tailwind compiler limitations */
+.p-xs { padding: 4px; }
+.p-sm { padding: 8px; }
+.p-md { padding: 16px; }
+.p-lg { padding: 24px; }
+.p-xl { padding: 40px; }
+
+.px-xs { padding-left: 4px; padding-right: 4px; }
+.px-sm { padding-left: 8px; padding-right: 8px; }
+.px-md { padding-left: 16px; padding-right: 16px; }
+.px-lg { padding-left: 24px; padding-right: 24px; }
+.px-xl { padding-left: 40px; padding-right: 40px; }
+
+.py-xs { padding-top: 4px; padding-bottom: 4px; }
+.py-sm { padding-top: 8px; padding-bottom: 8px; }
+.py-md { padding-top: 16px; padding-bottom: 16px; }
+.py-lg { padding-top: 24px; padding-bottom: 24px; }
+.py-xl { padding-top: 40px; padding-bottom: 40px; }
+
+.pl-xs { padding-left: 4px; }
+.pl-sm { padding-left: 8px; }
+.pl-md { padding-left: 16px; }
+.pl-lg { padding-left: 24px; }
+.pl-xl { padding-left: 40px; }
+
+.pr-xs { padding-right: 4px; }
+.pr-sm { padding-right: 8px; }
+.pr-md { padding-right: 16px; }
+.pr-lg { padding-right: 24px; }
+.pr-xl { padding-right: 40px; }
+
+.pt-xs { padding-top: 4px; }
+.pt-sm { padding-top: 8px; }
+.pt-md { padding-top: 16px; }
+.pt-lg { padding-top: 24px; }
+.pt-xl { padding-top: 40px; }
+
+.pb-xs { padding-bottom: 4px; }
+.pb-sm { padding-bottom: 8px; }
+.pb-md { padding-bottom: 16px; }
+.pb-lg { padding-bottom: 24px; }
+.pb-xl { padding-bottom: 40px; }
+
+.m-xs { margin: 4px; }
+.m-sm { margin: 8px; }
+.m-md { margin: 16px; }
+.m-lg { margin: 24px; }
+.m-xl { margin: 40px; }
+
+.mx-xs { margin-left: 4px; margin-right: 4px; }
+.mx-sm { margin-left: 8px; margin-right: 8px; }
+.mx-md { margin-left: 16px; margin-right: 16px; }
+.mx-lg { margin-left: 24px; margin-right: 24px; }
+.mx-xl { margin-left: 40px; margin-right: 40px; }
+
+.my-xs { margin-top: 4px; margin-bottom: 4px; }
+.my-sm { margin-top: 8px; margin-bottom: 8px; }
+.my-md { margin-top: 16px; margin-bottom: 16px; }
+.my-lg { margin-top: 24px; margin-bottom: 24px; }
+.my-xl { margin-top: 40px; margin-bottom: 40px; }
+
+.mt-xs { margin-top: 4px; }
+.mt-sm { margin-top: 8px; }
+.mt-md { margin-top: 16px; }
+.mt-lg { margin-top: 24px; }
+.mt-xl { margin-top: 40px; }
+
+.mb-xs { margin-bottom: 4px; }
+.mb-sm { margin-bottom: 8px; }
+.mb-md { margin-bottom: 16px; }
+.mb-lg { margin-bottom: 24px; }
+.mb-xl { margin-bottom: 40px; }
+
+.ml-xs { margin-left: 4px; }
+.ml-sm { margin-left: 8px; }
+.ml-md { margin-left: 16px; }
+.ml-lg { margin-left: 24px; }
+.ml-xl { margin-left: 40px; }
+
+.mr-xs { margin-right: 4px; }
+.mr-sm { margin-right: 8px; }
+.mr-md { margin-right: 16px; }
+.mr-lg { margin-right: 24px; }
+.mr-xl { margin-right: 40px; }
+
+.gap-xs { gap: 4px; }
+.gap-sm { gap: 8px; }
+.gap-md { gap: 16px; }
+.gap-lg { gap: 24px; }
+.gap-xl { gap: 40px; }
+
+.gap-x-xs { column-gap: 4px; }
+.gap-x-sm { column-gap: 8px; }
+.gap-x-md { column-gap: 16px; }
+.gap-x-lg { column-gap: 24px; }
+.gap-x-xl { column-gap: 40px; }
+
+.gap-y-xs { row-gap: 4px; }
+.gap-y-sm { row-gap: 8px; }
+.gap-y-md { row-gap: 16px; }
+.gap-y-lg { row-gap: 24px; }
+.gap-y-xl { row-gap: 40px; }
+
+.max-w-container-max {
+  max-width: 1200px;
+}
+
+.main-spacing-fix {
+  padding-top: 160px !important;
+}
+
+/* 6. Custom Modal Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
